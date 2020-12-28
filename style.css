@@ -1,0 +1,34 @@
+row{
+    color: black
+}
+
+#chessContainer{
+   
+    border:3px solid green;
+    margin: auto;
+   
+
+}
+#nav{
+    height:50px;
+}
+
+table.gridtable {
+    margin:0;
+    widows: 95%;
+    overflow: auto;
+    color: #333333;
+    border-width:1px;
+    border-color: #666666;
+    border-collapse:collapse;
+    text-align: center;
+}
+table.gridtable td{
+    border-width: 1px;
+    padding:8px;
+    width: 30px;
+    border-style: solid;
+    border-color:#666666; 
+}
+
+td:hover {background-color: #D8DA5C}
