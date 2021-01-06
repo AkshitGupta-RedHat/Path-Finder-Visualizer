@@ -5,10 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="style.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <!-- Compiled and minified CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
-    <nav id='nav'>
-
+    <nav id='nav' class="grey darken-3">
+        <div class="nav-wrapper">
+           
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                
+                <li><a>Start Node</a></li>
+         
+              <li><a href ="badges.html">Target Node</a></li>
+              <li><button onclick="dikstra" id ="dikstra">dikstar</button></li>
+            </ul>
+          </div>
     </nav>
     <div id = 'chessContainer'>
         <table class="gridtable" id="tableMain">
