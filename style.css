@@ -33,5 +33,44 @@ table.gridtable td{
 td.visited{
     background-color: rgba(179, 26, 133, 0.61); 
 }
-
+td.backtrace{
+    background-color: rgba(155, 41, 13, 0.61);  
+}
 td:hover {background-color: #D8DA5C}
+
+.fa-angle-right{
+    padding-left: 20px;
+}
+.btnadj{
+    color: #ffffff !important;
+padding: 0 !important;
+padding-top: 10px !important;
+border: 0 !important;
+height: 95% !important;
+background-color: #424242 !important; 
+}
+
+.hide-on-med-and-down{
+    height: 55px !important;
+}
+.raised{
+    padding-top: 3px;
+    padding-left: 2px;
+}
+
+.start{
+    padding-top: 3px !important;
+}
+
+.target{
+    padding-top: 1px !important;
+    padding-left: 2px !important;
+}
+
+.fa-dot-circle{
+    padding-left: 20px;
+}
+
+.fa-atom{
+    padding-left: 20px;
+}

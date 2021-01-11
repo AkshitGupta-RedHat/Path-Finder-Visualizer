@@ -4,8 +4,12 @@ var numOfRow = screen.height * .70 / 21;
 var numOfCol = screen.width / 20;
 var tbody = document.getElementById('tbody');
 var selection = null;
-var clickCounter = 0;
+var strClickCounter = 0;
+var tarClickCounter = 0;
 var adjacencyMatrix = [];
+var isStartClicked = false;
+var isTargetClicked = false;
+var backTraceCounter = 0;
 
 
 for (i = 0; i < numOfRow; i++) {
@@ -29,52 +33,62 @@ for (i = 0; i < numOfRow; i++) {
     var row = table.rows[i];
     for (j = 0; j < numOfCol; j++) {
         if (table.rows[i + 1] != undefined && row.cells[j + 1] != undefined && table.rows[i - 1] != undefined && row.cells[j - 1] != undefined) {
-            adjacencyMatrix[row.cells[j].id] = [row.cells[j + 1].id, row.cells[j - 1].id,table.rows[i - 1].cells[j].id, table.rows[i + 1].cells[j].id];
+            adjacencyMatrix[row.cells[j].id] = [row.cells[j + 1].id, row.cells[j - 1].id, table.rows[i - 1].cells[j].id, table.rows[i + 1].cells[j].id];
         }
         else if (table.rows[i - 1] == undefined && row.cells[j - 1] == undefined) {
-            adjacencyMatrix[row.cells[j].id] = [row.cells[j + 1].id,0, 0, table.rows[i + 1].cells[j].id];
+            adjacencyMatrix[row.cells[j].id] = [row.cells[j + 1].id, 0, 0, table.rows[i + 1].cells[j].id];
         }
         else if (table.rows[i - 1] == undefined && row.cells[j + 1] == undefined) {
-            adjacencyMatrix[row.cells[j].id] = [0,row.cells[j - 1].id, 0, table.rows[i + 1].cells[j].id];
+            adjacencyMatrix[row.cells[j].id] = [0, row.cells[j - 1].id, 0, table.rows[i + 1].cells[j].id];
         }
         else if (table.rows[i - 1] == undefined) {
-            adjacencyMatrix[row.cells[j].id] = [row.cells[j + 1].id, row.cells[j - 1].id,0, table.rows[i + 1].cells[j].id];
+            adjacencyMatrix[row.cells[j].id] = [row.cells[j + 1].id, row.cells[j - 1].id, 0, table.rows[i + 1].cells[j].id];
         }
 
         else if (table.rows[i + 1] == undefined && row.cells[j - 1] == undefined) {
-            adjacencyMatrix[row.cells[j].id] = [row.cells[j + 1].id,0,table.rows[i - 1].cells[j].id, 0];
+            adjacencyMatrix[row.cells[j].id] = [row.cells[j + 1].id, 0, table.rows[i - 1].cells[j].id, 0];
         }
         else if (table.rows[i + 1] == undefined && row.cells[j + 1] == undefined) {
-            adjacencyMatrix[row.cells[j].id] = [0,row.cells[j - 1].id, table.rows[i - 1].cells[j].id, 0];
+            adjacencyMatrix[row.cells[j].id] = [0, row.cells[j - 1].id, table.rows[i - 1].cells[j].id, 0];
         }
         else if (table.rows[i + 1] == undefined) {
-            adjacencyMatrix[row.cells[j].id] = [row.cells[j + 1].id,row.cells[j - 1].id, ,table.rows[i - 1].cells[j].id, 0];
+            adjacencyMatrix[row.cells[j].id] = [row.cells[j + 1].id, row.cells[j - 1].id, , table.rows[i - 1].cells[j].id, 0];
         }
         else if (row.cells[j - 1] == undefined) {
-            adjacencyMatrix[row.cells[j].id] = [row.cells[j + 1].id,0, table.rows[i - 1].cells[j].id, table.rows[i + 1].cells[j].id];
+            adjacencyMatrix[row.cells[j].id] = [row.cells[j + 1].id, 0, table.rows[i - 1].cells[j].id, table.rows[i + 1].cells[j].id];
         }
         else if (row.cells[j + 1] == undefined) {
-            adjacencyMatrix[row.cells[j].id] = [0,row.cells[j - 1].id, table.rows[i - 1].cells[j].id, table.rows[i + 1].cells[j].id];
+            adjacencyMatrix[row.cells[j].id] = [0, row.cells[j - 1].id, table.rows[i - 1].cells[j].id, table.rows[i + 1].cells[j].id];
         }
     }
 }
 console.log("Mat", adjacencyMatrix);
 
 
+function startbutton() {
+    isStartClicked = true;
+    isTargetClicked = false;
+}
 
-
+function targetbutton() {
+    isStartClicked = false;
+    isTargetClicked = true;
+}
 function mouseDown(e) {
     selection = e;
     var selectedEle = document.getElementById(selection);
-    if (clickCounter == 0) {
+    if (isStartClicked == true && strClickCounter == 0) {
+        isStartClicked = false;
+        strClickCounter++;
         selectedEle.style.background = 'green';
-        selectedEle.setAttribute("class", "start");
-        clickCounter++;
+        selectedEle.setAttribute("class", "start fas fa-angle-right");
     }
-    else if (clickCounter == 1) {
+    else if (isTargetClicked == true && tarClickCounter == 0) {
+        tarClickCounter++;
+        isTargetClicked = false;
         selectedEle.style.background = 'red';
-        selectedEle.setAttribute("class", "target");
-        clickCounter++;
+        selectedEle.setAttribute("class", "target far fa-dot-circle");
+        tarClickCounter++;
     }
     else {
         return;
@@ -92,34 +106,135 @@ console.log("se", tar);
 var dikBut = document.getElementById("dikstra");
 
 dikBut.setAttribute("onclick", "dikstra(select, tar)");
-function dikstra(select, tar) {
 
+
+
+function dikstra(select, tar) {
+    if (select.item(0) == null || tar.item(0) == null) {
+        return;
+    }
+    strClickCounter = 0;
+    tarClickCounter = 0;
     console.log("dik", select.item(0).id, tar.item(0).id);
     var queue = new Set();
-    queue.add(select.item(0).id);
- var rightColCounter =0;
- var lefttColCounter =0;
- var upRowCounter =0;
- var downRowCounter =0;
+    var root = select.item(0).id;
+    queue.add(root);
+    var text = document.createTextNode(0);
+    document.getElementById(root).appendChild(text);
     var target = tar.item(0).id;
     console.log("target", target);
-    for (let item of queue) {
-        for (var i = 0; i < 4; i++) {
-            if(adjacencyMatrix[item][i]!=0 &&adjacencyMatrix[item][i]!=null && adjacencyMatrix[item][i]!=target){
-                queue.add(adjacencyMatrix[item][i]);
-                var visited = document.getElementById(adjacencyMatrix[item][i]);
-                visited.setAttribute("class","visited");
-                console.log("que",item);
+
+
+    var refreshIntervalRootId = setInterval(() => {
+        for (let item of queue) {
+            var rootDistance = parseInt(document.getElementById(item).textContent);
+            rootDistance++;
+
+            setTimeout(() => {
+
+                for (var i = 0; i < 4; i++) {
+
+                    var visited = document.getElementById(adjacencyMatrix[item][i]);
+                    if (adjacencyMatrix[item][i] != 0 && adjacencyMatrix[item][i] != null && adjacencyMatrix[item][i] != target && document.getElementById(adjacencyMatrix[item][i]).className != "visited") {
+                        queue.add(adjacencyMatrix[item][i]);
+                        visited.setAttribute("class", "visited");
+                        if (i == 0) {
+                            visited.setAttribute("path", "rt");
+                        }
+                        else if (i == 1) {
+                            visited.setAttribute("path", "lt");
+                        }
+                        else if (i == 2) {
+                            visited.setAttribute("path", "up");
+                        }
+                        else {
+                            visited.setAttribute("path", "down");
+                        }
+                        text = document.createTextNode(rootDistance);
+                        visited.appendChild(text);
+                        console.log("que", item);
+                    }
+                    else if (adjacencyMatrix[item][i] == target) {
+                        if (i == 0) {
+                            visited.setAttribute("path", "rt");
+                        }
+                        else if (i == 1) {
+                            visited.setAttribute("path", "lt");
+                        }
+                        else if (i == 2) {
+                            visited.setAttribute("path", "up");
+                        }
+                        else {
+                            visited.setAttribute("path", "down");
+                        }
+                        console.log("Reached target", rootDistance);
+                        backTraceCounter++;  
+                        clearInterval(refreshIntervalRootId); 
+                        backTrace(item, root, backTraceCounter);
+                        break;
+                    }
+                }
+                if (backTraceCounter != 0) {
+                    clearInterval(refreshIntervalRootId);
+                    
+                }
+            }, 50);     
+            if (backTraceCounter != 0) {
+               
+                clearInterval(refreshIntervalRootId);
             }
-            else if(adjacencyMatrix[item][i]==target){
-                console.log("Reached target");
-                return;
-            }
+            console.log("outside inner loop");
+        }
+        if (backTraceCounter != 0) {
+        //    clearInterval(refreshIntervalId); 
+            clearInterval(refreshIntervalRootId);
             
         }
-      
-        
-    }
-    console.log("out of loop");
+    }, 50);
+ 
 }
+
+function backTrace(id, root, backTraceCounter) {
+    let stack = [id];
+    let path;
+    if (backTraceCounter == 0) {
+        return;
+    }
+    for (var i = 0; i < stack.length; i++) {
+        path = document.getElementById(stack[i]);
+        //  path.setAttribute("class", "backtrace");
+
+        if (stack[i] == root) {
+            console.log("reached root");
+            pathColor(stack);
+            backTraceCounter++;
+            return;
+        }
+        else if (path.getAttribute('path') == "down") {
+            stack.push(adjacencyMatrix[stack[i]][2]);
+        }
+        else if (path.getAttribute('path') == "rt") {
+            stack.push(adjacencyMatrix[stack[i]][1]);
+        }
+        else if (path.getAttribute('path') == "lt") {
+            stack.push(adjacencyMatrix[stack[i]][0]);
+        }
+        else if (path.getAttribute('path') == "up") {
+            stack.push(adjacencyMatrix[stack[i]][3]);
+        }
+
+        console.log(path.getAttribute('path'));
+
+    }
+}
+function pathColor(stack) {
+    let node;
+    for (var i = stack.length - 1; i >= 0; i--) {
+        node = document.getElementById(stack[i]);
+        node.setAttribute("class", "backtrace");
+    }
+    return;
+}
+console.log("out of loop");
+
 console.log("out of function");
