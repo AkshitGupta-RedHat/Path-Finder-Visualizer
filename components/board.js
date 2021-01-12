@@ -9,7 +9,7 @@ var tarClickCounter = 0;
 var adjacencyMatrix = [];
 var isStartClicked = false;
 var isTargetClicked = false;
-var backTraceCounter = 0;
+
 
 
 for (i = 0; i < numOfRow; i++) {
@@ -100,6 +100,10 @@ function mouseDown(e) {
 
 
 var select = document.getElementsByClassName("start");
+anime({
+    targets: [select, '.mixed-array-demo .el-02', '.mixed-array-demo .el-03'],
+    translateX: 250
+});
 var tar = document.getElementsByClassName("target");
 console.log("se", select.inner);
 console.log("se", tar);
@@ -125,81 +129,64 @@ function dikstra(select, tar) {
     console.log("target", target);
 
 
-    var refreshIntervalRootId = setInterval(() => {
-        for (let item of queue) {
-            var rootDistance = parseInt(document.getElementById(item).textContent);
-            rootDistance++;
 
-            setTimeout(() => {
-
-                for (var i = 0; i < 4; i++) {
-
-                    var visited = document.getElementById(adjacencyMatrix[item][i]);
-                    if (adjacencyMatrix[item][i] != 0 && adjacencyMatrix[item][i] != null && adjacencyMatrix[item][i] != target && document.getElementById(adjacencyMatrix[item][i]).className != "visited") {
-                        queue.add(adjacencyMatrix[item][i]);
-                        visited.setAttribute("class", "visited");
-                        if (i == 0) {
-                            visited.setAttribute("path", "rt");
-                        }
-                        else if (i == 1) {
-                            visited.setAttribute("path", "lt");
-                        }
-                        else if (i == 2) {
-                            visited.setAttribute("path", "up");
-                        }
-                        else {
-                            visited.setAttribute("path", "down");
-                        }
-                        text = document.createTextNode(rootDistance);
-                        visited.appendChild(text);
-                        console.log("que", item);
-                    }
-                    else if (adjacencyMatrix[item][i] == target) {
-                        if (i == 0) {
-                            visited.setAttribute("path", "rt");
-                        }
-                        else if (i == 1) {
-                            visited.setAttribute("path", "lt");
-                        }
-                        else if (i == 2) {
-                            visited.setAttribute("path", "up");
-                        }
-                        else {
-                            visited.setAttribute("path", "down");
-                        }
-                        console.log("Reached target", rootDistance);
-                        backTraceCounter++;  
-                        clearInterval(refreshIntervalRootId); 
-                        backTrace(item, root, backTraceCounter);
-                        break;
-                    }
+    for (let item of queue) {
+        var rootDistance = parseInt(document.getElementById(item).textContent);
+        rootDistance++;
+        for (var i = 0; i < 4; i++) {
+            var visited = document.getElementById(adjacencyMatrix[item][i]);
+            if (adjacencyMatrix[item][i] != 0 && adjacencyMatrix[item][i] != null && adjacencyMatrix[item][i] != target && document.getElementById(adjacencyMatrix[item][i]).className != "visited") {
+                queue.add(adjacencyMatrix[item][i]);
+                visited.setAttribute("class", "visited");
+                if (i == 0) {
+                    visited.setAttribute("path", "rt");
                 }
-                if (backTraceCounter != 0) {
-                    clearInterval(refreshIntervalRootId);
-                    
+                else if (i == 1) {
+                    visited.setAttribute("path", "lt");
                 }
-            }, 50);     
-            if (backTraceCounter != 0) {
-               
-                clearInterval(refreshIntervalRootId);
+                else if (i == 2) {
+                    visited.setAttribute("path", "up");
+                }
+                else {
+                    visited.setAttribute("path", "down");
+                }
+                text = document.createTextNode(rootDistance);
+                visited.appendChild(text);
+                console.log("que", item);
             }
-            console.log("outside inner loop");
+            else if (adjacencyMatrix[item][i] == target) {
+                if (i == 0) {
+                    visited.setAttribute("path", "rt");
+                }
+                else if (i == 1) {
+                    visited.setAttribute("path", "lt");
+                }
+                else if (i == 2) {
+                    visited.setAttribute("path", "up");
+                }
+                else {
+                    visited.setAttribute("path", "down");
+                }
+                console.log("Reached target", rootDistance);
+                backTrace(item, root);
+                displayPath();
+                return;
+            }
         }
-        if (backTraceCounter != 0) {
-        //    clearInterval(refreshIntervalId); 
-            clearInterval(refreshIntervalRootId);
-            
-        }
-    }, 50);
- 
+
+
+
+        console.log("outside inner loop");
+    }
+
+
+
 }
 
-function backTrace(id, root, backTraceCounter) {
+function backTrace(id, root) {
     let stack = [id];
     let path;
-    if (backTraceCounter == 0) {
-        return;
-    }
+
     for (var i = 0; i < stack.length; i++) {
         path = document.getElementById(stack[i]);
         //  path.setAttribute("class", "backtrace");
@@ -207,7 +194,6 @@ function backTrace(id, root, backTraceCounter) {
         if (stack[i] == root) {
             console.log("reached root");
             pathColor(stack);
-            backTraceCounter++;
             return;
         }
         else if (path.getAttribute('path') == "down") {
@@ -235,6 +221,29 @@ function pathColor(stack) {
     }
     return;
 }
-console.log("out of loop");
 
-console.log("out of function");
+function displayPath() {
+    let visitedNodes = document.querySelectorAll("td.visited");
+
+    let paths = document.querySelectorAll("td.backtrace");
+    let num = 0;
+    visitedNodes.forEach(visitedNode => {
+        setTimeout(() => {
+            visitedNode.style.backgroundColor = 'purple';
+        }, num += 200);
+    })
+    num = 0;
+    paths.forEach(path => {
+        setTimeout(() => {
+            path.style.backgroundColor = 'yellow';
+        }, num += 200);
+    })
+    //    anime({
+    //        targets:".visited",
+    //        scale: [
+    //         {value: .1, easing: 'easeOutSine', duration: 500},
+    //         {value: 1, easing: 'easeInOutQuad', duration: 1200}
+    //       ],
+    //       delay: anime.stagger(200, {grid: [numOfCol, numOfRow], from: 'center'})
+    //    })
+}
