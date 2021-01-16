@@ -30,12 +30,7 @@ table.gridtable td{
     border-style: solid;
     border-color:#666666; 
 }
-td.visited{
-    background-color: rgba(179, 26, 133, 0.61); 
-}
-td.backtrace{
-    background-color: rgba(155, 41, 13, 0.61);  
-}
+
 td:hover {background-color: #D8DA5C}
 
 .fa-angle-right{

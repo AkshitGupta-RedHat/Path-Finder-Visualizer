@@ -1,6 +1,5 @@
-
 var screenWidth = screen.width * .95;
-var numOfRow = screen.height * .70 / 21;
+var numOfRow = screen.height *.8 / 21;
 var numOfCol = screen.width / 20;
 var tbody = document.getElementById('tbody');
 var selection = null;
@@ -100,10 +99,7 @@ function mouseDown(e) {
 
 
 var select = document.getElementsByClassName("start");
-anime({
-    targets: [select, '.mixed-array-demo .el-02', '.mixed-array-demo .el-03'],
-    translateX: 250
-});
+
 var tar = document.getElementsByClassName("target");
 console.log("se", select.inner);
 console.log("se", tar);
@@ -123,21 +119,22 @@ function dikstra(select, tar) {
     var queue = new Set();
     var root = select.item(0).id;
     queue.add(root);
-    var text = document.createTextNode(0);
-    document.getElementById(root).appendChild(text);
+    var rtElement = document.getElementById(root);
+    rtElement.setAttribute("rtDis",0);
+    rtElement.classList +=" visited";
     var target = tar.item(0).id;
     console.log("target", target);
 
 
 
     for (let item of queue) {
-        var rootDistance = parseInt(document.getElementById(item).textContent);
+        var rootDistance = parseInt(document.getElementById(item).getAttribute('rtDis'));
         rootDistance++;
         for (var i = 0; i < 4; i++) {
             var visited = document.getElementById(adjacencyMatrix[item][i]);
-            if (adjacencyMatrix[item][i] != 0 && adjacencyMatrix[item][i] != null && adjacencyMatrix[item][i] != target && document.getElementById(adjacencyMatrix[item][i]).className != "visited") {
+            if (adjacencyMatrix[item][i] != 0 && adjacencyMatrix[item][i] != null && adjacencyMatrix[item][i] != target && !document.getElementById(adjacencyMatrix[item][i]).classList.contains("visited")) {
                 queue.add(adjacencyMatrix[item][i]);
-                visited.setAttribute("class", "visited");
+                visited.classList +="visited";
                 if (i == 0) {
                     visited.setAttribute("path", "rt");
                 }
@@ -150,8 +147,8 @@ function dikstra(select, tar) {
                 else {
                     visited.setAttribute("path", "down");
                 }
-                text = document.createTextNode(rootDistance);
-                visited.appendChild(text);
+               // text = document.createTextNode(rootDistance);
+                visited.setAttribute("rtDis",rootDistance);
                 console.log("que", item);
             }
             else if (adjacencyMatrix[item][i] == target) {
@@ -184,12 +181,10 @@ function backTrace(id, root, queue) {
 
     for (var i = 0; i < stack.length; i++) {
         path = document.getElementById(stack[i]);
-        //  path.setAttribute("class", "backtrace");
-
         if (stack[i] == root) {
             console.log("reached root");
             pathColor(stack);
-            displayTraversal(queue,stack);
+            displayTraversal(queue,stack,root);
         }
         else if (path.getAttribute('path') == "down") {
             stack.push(adjacencyMatrix[stack[i]][2]);
@@ -210,27 +205,20 @@ function backTrace(id, root, queue) {
 }
 function pathColor(stack) {
     let node;
-    for (var i = stack.length - 1; i >= 0; i--) {
+    for (var i = stack.length - 2; i > 0; i--) {
         node = document.getElementById(stack[i]);
         node.setAttribute("class", "backtrace");
     }
     return stack;
 }
 
-function displayTraversal(queue,stack) {
-    let visitedNodes = document.querySelectorAll("td.visited");
-    let paths = document.querySelectorAll("td.backtrace");
+function displayTraversal(queue,stack,root) {
     let num = 0;
-    // visitedNodes.forEach(visitedNode =>{
-    //     setTimeout(() =>{
-    //         visitedNode.style.backgroundColor ='purple';
-    //     },num +=200);
-    // }) 
-
+    queue.delete(root);
     for (let item of queue) {
         setTimeout(function () {
             let node = document.getElementById(item);
-            node.style.backgroundColor = 'red';
+            node.style.backgroundColor = 'blue';
             if(stack[0]==item){
                 displayPath(stack);
             }
@@ -245,23 +233,11 @@ function displayTraversal(queue,stack) {
     //         console.log("delay",array[i]);
     //     }, array[i] * 5000)
     // }
-
-
-    //    anime({
-    //        targets:".visited",
-    //        scale: [
-    //         {value: .1, easing: 'easeOutSine', duration: 500},
-    //         {value: 1, easing: 'easeInOutQuad', duration: 1200}
-    //       ],
-    //       delay: anime.stagger(200, {grid: [numOfCol, numOfRow], from: 'center'})
-    //    })
 }
 
 
 function displayPath(stack) {
-    let visitedNodes = document.querySelectorAll("td.visited");
-    let paths = document.querySelectorAll("td.backtrace");
-    let num = 0;
+   let num = 0;
 
 
     for (let i = stack.length-1; i >=0; i--) {
@@ -271,17 +247,4 @@ function displayPath(stack) {
         }, num += 100)
     }
     return;
-    // paths.forEach(path =>{
-    //     setTimeout(() =>{
-    //         path.style.backgroundColor ='yellow';
-    //     },num +=200);
-    // })
-    //    anime({
-    //        targets:".visited",
-    //        scale: [
-    //         {value: .1, easing: 'easeOutSine', duration: 500},
-    //         {value: 1, easing: 'easeInOutQuad', duration: 1200}
-    //       ],
-    //       delay: anime.stagger(200, {grid: [numOfCol, numOfRow], from: 'center'})
-    //    })
 }
