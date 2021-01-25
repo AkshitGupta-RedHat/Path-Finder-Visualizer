@@ -94,7 +94,7 @@ function mouseMove(e){
         var selectedEle = document.getElementById(selection);
          if( isMouseDown==true&&isBombClicked == true 
             && !selectedEle.classList.contains("start") && !selectedEle.classList.contains("target") && !selectedEle.classList.contains("bomb")){
-           selectedEle.style.background = 'yellow';
+           selectedEle.style.background = 'red';
            selectedEle.setAttribute("class", "bomb fas fa-bomb");
         }
 }
@@ -107,13 +107,13 @@ function mouseDown(e) {
         isStartClicked = false;
         strClickCounter++;
         selectedEle.style.background = 'green';
-        selectedEle.setAttribute("class", "start fas fa-angle-right");
+        selectedEle.setAttribute("class", "start fas fa-play");
     }
     else if (isTargetClicked == true && tarClickCounter == 0) {
         tarClickCounter++;
         isTargetClicked = false;
-        selectedEle.style.background = 'red';
-        selectedEle.setAttribute("class", "target far fa-dot-circle");
+        selectedEle.style.background = 'yellow';
+        selectedEle.setAttribute("class", "target fas fa-map-marker-alt");
         tarClickCounter++;
     }
  
@@ -256,7 +256,7 @@ function displayTraversal(queue,stack,root) {
             if(stack[0]==item){
                 displayPath(stack);
             }
-        }, num += 30)
+        }, num += 10)
     }
     return;
     //Test Code--------------------------------------

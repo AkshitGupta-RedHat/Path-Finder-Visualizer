@@ -75,10 +75,11 @@ td{
     padding-bottom: 21 !important;
  
 }
-.fa-bomb{
+.fa-bomb, .fa-play, .fa-map-marker-alt{
     padding: 0 !important;
 }
-.fa-bomb::before{
+
+.fa-bomb::before, .fa-play::before, .fa-map-marker-alt::before{
     padding-left: 5px;;
 }
 .fa-dot-circle{
