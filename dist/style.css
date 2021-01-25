@@ -1,7 +1,10 @@
-row{
+.row{
     color: black
 }
 
+.top-padding{
+    padding: 1%;
+  }
 #chessContainer{
    
     border:3px solid green;
@@ -36,13 +39,19 @@ td:hover {background-color: #D8DA5C}
 .fa-angle-right{
     padding-left: 20px;
 }
+.rightshift{
+
+}
 .btnadj{
+    border: solid 2px rgb(100, 6, 119) !important;
+    background-color: black;
+    font-weight: bold;
     color: #ffffff !important;
 padding: 0 !important;
-padding-top: 10px !important;
-border: 0 !important;
-height: 95% !important;
-background-color: #424242 !important; 
+margin-top: 1%;
+width: 10%;
+height: 15% !important; 
+
 }
 
 .hide-on-med-and-down{
@@ -61,7 +70,12 @@ background-color: #424242 !important;
     padding-top: 1px !important;
     padding-left: 2px !important;
 }
-
+.bomb{
+    padding-left: 8 !important;
+    padding-right: 18 !important;
+    padding-top: 2 !important;
+    padding-bottom: 21 !important;
+}
 .fa-dot-circle{
     padding-left: 20px;
 }

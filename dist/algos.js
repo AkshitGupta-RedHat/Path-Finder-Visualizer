@@ -1,3 +1,5 @@
+
+
 var screenWidth = screen.width * .95;
 var numOfRow = screen.height *.8 / 21;
 var numOfCol = screen.width / 20;
@@ -9,15 +11,16 @@ var adjacencyMatrix = [];
 var isStartClicked = false;
 var isTargetClicked = false;
 
-
-
 for (i = 0; i < numOfRow; i++) {
     var tr = document.createElement("tr");
     tr.setAttribute("id", Math.random() * 10000);
     for (j = 0; j < numOfCol; j++) {
         var td = document.createElement("td");
         td.setAttribute("id", Math.random() * 100000);
-        td.setAttribute("onclick", "mouseDown(this.id)");
+        td.setAttribute("onmousedown", "mouseDown(this.id)");   
+       // td.setAttribute("onmousedown","mouseDn(this.id)");
+        td.setAttribute("onmouseup","mouseUp()");
+        td.setAttribute("onmousemove","mouseMove(this.id)");
         td.style.height = 20;
         td.style.width = 20;
         tr.appendChild(td);
@@ -63,7 +66,7 @@ for (i = 0; i < numOfRow; i++) {
 }
 console.log("Mat", adjacencyMatrix);
 
-
+var isMouseDown = false;
 function startbutton() {
     isStartClicked = true;
     isTargetClicked = false;
@@ -73,7 +76,29 @@ function targetbutton() {
     isStartClicked = false;
     isTargetClicked = true;
 }
+function bombbutton(){
+    isBombClicked = true;
+}
+
+function mouseUp(){
+    isMouseDown = false;
+}
+function mouseMove(e){
+    console.log("mousemove", isMouseDown,e);
+
+    
+
+        selection = e;
+        var selectedEle = document.getElementById(selection);
+         if( isMouseDown==true&&isBombClicked == true 
+            && !selectedEle.classList.contains("start") && !selectedEle.classList.contains("target") && !selectedEle.classList.contains("bomb")){
+           selectedEle.style.background = 'yellow';
+           selectedEle.setAttribute("class", "bomb");
+        }
+}
+
 function mouseDown(e) {
+    console.log("mousedown",e)
     selection = e;
     var selectedEle = document.getElementById(selection);
     if (isStartClicked == true && strClickCounter == 0) {
@@ -89,6 +114,12 @@ function mouseDown(e) {
         selectedEle.setAttribute("class", "target far fa-dot-circle");
         tarClickCounter++;
     }
+ 
+     else if(isBombClicked == true){
+        isMouseDown = true;
+    //     selectedEle.style.background = 'black';
+    //     selectedEle.setAttribute("class", "bomb fas fa-bomb");
+   }
     else {
         return;
     }
@@ -132,7 +163,8 @@ function dikstra(select, tar) {
         rootDistance++;
         for (var i = 0; i < 4; i++) {
             var visited = document.getElementById(adjacencyMatrix[item][i]);
-            if (adjacencyMatrix[item][i] != 0 && adjacencyMatrix[item][i] != null && adjacencyMatrix[item][i] != target && !document.getElementById(adjacencyMatrix[item][i]).classList.contains("visited")) {
+            var current = adjacencyMatrix[item][i];
+            if (current != 0 && current != null && current != target && !document.getElementById(current).classList.contains("visited") && !document.getElementById(current).classList.contains("bomb")) {
                 queue.add(adjacencyMatrix[item][i]);
                 visited.classList +="visited";
                 if (i == 0) {
