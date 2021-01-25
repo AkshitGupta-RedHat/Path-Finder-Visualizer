@@ -2,9 +2,7 @@
     color: black
 }
 
-.top-padding{
-    padding: 1%;
-  }
+
 #chessContainer{
    
     border:3px solid green;
@@ -28,7 +26,7 @@ table.gridtable {
 }
 table.gridtable td{
     border-width: 1px;
-    padding:8px;
+    display: table-cell !important;
     width: 30px;
     border-style: solid;
     border-color:#666666; 
@@ -50,7 +48,7 @@ td:hover {background-color: #D8DA5C}
 padding: 0 !important;
 margin-top: 1%;
 width: 10%;
-height: 15% !important; 
+height: 6% !important; 
 
 }
 
@@ -70,11 +68,18 @@ height: 15% !important;
     padding-top: 1px !important;
     padding-left: 2px !important;
 }
-.bomb{
+td{
     padding-left: 8 !important;
     padding-right: 18 !important;
     padding-top: 2 !important;
     padding-bottom: 21 !important;
+ 
+}
+.fa-bomb{
+    padding: 0 !important;
+}
+.fa-bomb::before{
+    padding-left: 5px;;
 }
 .fa-dot-circle{
     padding-left: 20px;

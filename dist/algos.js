@@ -19,8 +19,10 @@ for (i = 0; i < numOfRow; i++) {
         td.setAttribute("id", Math.random() * 100000);
         td.setAttribute("onmousedown", "mouseDown(this.id)");   
        // td.setAttribute("onmousedown","mouseDn(this.id)");
+
         td.setAttribute("onmouseup","mouseUp()");
         td.setAttribute("onmousemove","mouseMove(this.id)");
+
         td.style.height = 20;
         td.style.width = 20;
         tr.appendChild(td);
@@ -93,7 +95,7 @@ function mouseMove(e){
          if( isMouseDown==true&&isBombClicked == true 
             && !selectedEle.classList.contains("start") && !selectedEle.classList.contains("target") && !selectedEle.classList.contains("bomb")){
            selectedEle.style.background = 'yellow';
-           selectedEle.setAttribute("class", "bomb");
+           selectedEle.setAttribute("class", "bomb fas fa-bomb");
         }
 }
 
