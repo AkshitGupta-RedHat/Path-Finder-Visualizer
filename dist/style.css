@@ -29,35 +29,29 @@ table.gridtable td{
     display: table-cell !important;
     width: 30px;
     border-style: solid;
-    border-color:#666666; 
+    border-color:#7c042c; 
 }
-
+td{ background-color: black;
+    padding-left: 8 !important;
+    padding-right: 18 !important;
+    padding-top: 2 !important;
+    padding-bottom: 21 !important;
+}
 td:hover {background-color: #D8DA5C}
 
 .fa-angle-right{
     padding-left: 20px;
 }
-.rightshift{
 
-}
 .btnadj{
-    border: solid 2px rgb(100, 6, 119) !important;
+    border: solid 2px #7c042c !important;
     background-color: black;
     font-weight: bold;
     color: #ffffff !important;
-padding: 0 !important;
-margin-top: 1%;
-width: 10%;
-height: 6% !important; 
-
-}
-
-.hide-on-med-and-down{
-    height: 55px !important;
-}
-.raised{
-    padding-top: 3px;
-    padding-left: 2px;
+    padding: 0 !important;
+    margin-top: 1%;
+    width: 10%;
+    height: 6% !important; 
 }
 
 .start{
@@ -68,13 +62,7 @@ height: 6% !important;
     padding-top: 1px !important;
     padding-left: 2px !important;
 }
-td{
-    padding-left: 8 !important;
-    padding-right: 18 !important;
-    padding-top: 2 !important;
-    padding-bottom: 21 !important;
- 
-}
+
 .fa-bomb, .fa-play, .fa-map-marker-alt{
     padding: 0 !important;
 }

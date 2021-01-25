@@ -252,7 +252,7 @@ function displayTraversal(queue,stack,root) {
     for (let item of queue) {
         setTimeout(function () {
             let node = document.getElementById(item);
-            node.style.backgroundColor = 'blue';
+            node.style.backgroundColor = 'purple';
             if(stack[0]==item){
                 displayPath(stack);
             }
