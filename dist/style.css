@@ -2,7 +2,9 @@
     color: black
 }
 
-
+.nav-wrapper{
+    padding-bottom: 5%;
+}
 #chessContainer{
    
     border:3px solid green;
@@ -13,7 +15,10 @@
 #nav{
     height:50px;
 }
-
+.rightshift{
+    float: right;
+    width: 65%;
+}
 table.gridtable {
     margin:0;
     widows: 95%;
@@ -49,8 +54,9 @@ td:hover {background-color: #D8DA5C}
     font-weight: bold;
     color: #ffffff !important;
     padding: 0 !important;
+    padding-left: 1rem !important;
     margin-top: 1%;
-    width: 10%;
+    width: 24%;
     height: 6% !important; 
 }
 
