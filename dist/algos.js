@@ -23,8 +23,9 @@ for (i = 0; i < numOfRow; i++) {
         td.setAttribute("onmouseup","mouseUp()");
         td.setAttribute("onmousemove","mouseMove(this.id)");
 
-        td.style.height = 20;
-        td.style.width = 20;
+        td.style.height = "1rem" ;
+        td.style.width = "1rem" ;
+        td.style.padding = 0 ;
         tr.appendChild(td);
     }
     tbody.appendChild(tr);
@@ -87,9 +88,6 @@ function mouseUp(){
 }
 function mouseMove(e){
     console.log("mousemove", isMouseDown,e);
-
-    
-
         selection = e;
         var selectedEle = document.getElementById(selection);
          if( isMouseDown==true&&isBombClicked == true 
@@ -103,13 +101,13 @@ function mouseDown(e) {
     console.log("mousedown",e)
     selection = e;
     var selectedEle = document.getElementById(selection);
-    if (isStartClicked == true && strClickCounter == 0) {
+    if (isStartClicked == true && strClickCounter == 0 && !selectedEle.classList.contains("target")&& !selectedEle.classList.contains("bomb")) {
         isStartClicked = false;
         strClickCounter++;
         selectedEle.style.background = 'green';
         selectedEle.setAttribute("class", "start fas fa-play");
     }
-    else if (isTargetClicked == true && tarClickCounter == 0) {
+    else if (isTargetClicked == true && tarClickCounter == 0 && !selectedEle.classList.contains("start")&& !selectedEle.classList.contains("bomb")) {
         tarClickCounter++;
         isTargetClicked = false;
         selectedEle.style.background = 'yellow';

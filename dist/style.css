@@ -21,7 +21,7 @@ img{
 
 .rightshift{
     float: right;
-    width: 65%;
+    width: 85%;
 }
 table.gridtable {
     margin:0;
@@ -36,32 +36,29 @@ table.gridtable {
 table.gridtable td{
     border-width: 1px;
     display: table-cell !important;
-    width: 30px;
+   
     border-style: solid;
     border-color:#7c042c; 
 }
-td{ background-color: black;
-    padding-left: 8 !important;
-    padding-right: 18 !important;
-    padding-top: 2 !important;
-    padding-bottom: 21 !important;
-}
+
 td:hover {background-color: #D8DA5C}
 
-.fa-angle-right{
-    padding-left: 20px;
-}
+
 
 .btnadj{
+    height: 2rem;
     border: solid 2px #7c042c !important;
     background-color: black;
     font-weight: bold;
+    font-size: 1rem;
     color: #ffffff !important;
-    padding: 0 !important;
-    padding-left: 1rem !important;
+ cursor: pointer;
+    padding-left: 1rem ;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    padding-top: 1rem;
     margin-top: 1%;
-    width: 24%;
-    height: 6% !important; 
+
 }
 
 .start{
@@ -85,5 +82,5 @@ td:hover {background-color: #D8DA5C}
 }
 
 .fa-atom{
-    padding-left: 20px;
+    padding-left: 5px;
 }

@@ -15,37 +15,73 @@
 
 <body>
     <div class="nav black">
-        <div class="nav-wrapper black">
-           <div class="row">
-            <div class="brand-logo left col s12 l1">
-                <img src="./img/logosmall.PNG" />
-            </div>
-        
-               
+      
 
-                <div class="rightshift s12 l1">
-                    <button class="btnadj" onclick="startbutton()">
-                        <i class="fas fas fa-play"></i>
-                        Start
-                    </button>
-                    <button class="btnadj padding" onclick="targetbutton()">
-                        <i class="fas fa-map-marker-alt"></i>
-                         Target
-                    </button>
-                    <button class="btnadj padding" onclick="bombbutton()">
-                        <i class="fas far fas fa-bomb"></i>
-                         Bomb
-                    </button>
-                    <button class="btnadj padding" id="dikstra">
-                        <i class="fas fa-atom"></i>
-                         Dikstars Algo
-                    </button>
 
+    <nav class="nav-wrapper black">
+        <div class="">
+            <div class="row">
+                <div class="right col s12 m8 vl1">
+                    <ul class="hide-on-med-and-down">
+                        <li><button class="btnadj" onclick="startbutton()">
+                                <i class="fas fa-play"></i>
+                                Start
+                            </button></li>
+                       <li> <button class="btnadj" onclick="targetbutton()">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Target
+                        </button></li>
+                        <li><button class="btnadj" onclick="bombbutton()">
+                            <i class="fas far fas fa-bomb"></i>
+                            Bomb
+                        </button>
+                    </li>
+                    <li><button class="btnadj" id="dikstra">
+                            <i class="fas fa-atom"></i>
+                            Dijkstra Algorithm
+                        </button></li>
+                        <li><button class="btnadj" id="reset"  onClick="window.location.reload();">
+                            <i class="fas fa-backward"></i>
+                          Reset
+                        </button></li>
+                    </ul>
                 </div>
+                <div class="brand-logo left col s12 m4 vl1">
+                    <img src="./img/logosmall.PNG" />
+                </div>
+
+                <a href="#" class="sidenav-trigger right" data-target="mobile-links">
+                    <i class="material-icons">menu</i>
+                </a>
+               
             </div>
         </div>
-    </div>
+    </nav>
 
+
+    <ul class="sidenav" id="mobile-links">
+        <li><a onclick="startbutton()">
+            <i class="fas fa-play"></i>
+            Start
+        </a></li>
+   <li> <a onclick="targetbutton()">
+        <i class="fas fa-map-marker-alt"></i>
+        Target
+   </a></li>
+    <li><a onclick="bombbutton()">
+        <i class="fas far fas fa-bomb"></i>
+        Bomb
+    </a>
+</li>
+<li><a id="dikstra">
+        <i class="fas fa-atom"></i>
+        Dijkstra Algorithm
+</a></li>
+    <li><a id="reset"  onClick="window.location.reload();">
+        <i class="fas fa-backward"></i>
+      Reset
+    </a></li>
+    </ul>
     <div id='chessContainer'>
         <table class="gridtable" id="tableMain">
             <tbody id="tbody">
@@ -53,9 +89,17 @@
             </tbody>
         </table>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+   
     <script src="./algos.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+    <script>
+       
+        $('.sidenav').sidenav().on('click tap', 'li a', () => {
+            $('.sidenav').sidenav('close');
+        });;
+    </script>
 </body>
 
 </html>

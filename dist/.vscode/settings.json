@@ -1,0 +1,5 @@
+{
+    "terminal.integrated.automationShell.windows": [
+        "-ExecutionPolicy",
+        "Bypass"
+    ]
