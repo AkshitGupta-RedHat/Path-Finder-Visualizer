@@ -136,11 +136,11 @@ console.log("se", select.inner);
 console.log("se", tar);
 var dikBut = document.getElementById("dikstra");
 
-dikBut.setAttribute("onclick", "dikstra(select, tar)");
 
 
 
-function dikstra(select, tar) {
+
+function dikstra() {
     if (select.item(0) == null || tar.item(0) == null) {
         return;
     }
